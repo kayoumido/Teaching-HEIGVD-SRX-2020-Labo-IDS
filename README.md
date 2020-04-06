@@ -638,7 +638,7 @@ alert icmp any any -> 192.168.1.151 any (msg: "Pinged"; itype:8; sid: 4000017; r
 
 **Reponse :**  
 
-Nous avons défini que nous voulions avoir une alerte seulement les paquets `ICMP` ayant comme destination notre système grâce à l'opérateur `->`. De plus nous avons ajouté l'option `itype:8` pour que snort ne nous alerte seulement quand il détecte des requêtes `ICMP echo request` ceci afin d'alléger les logs.
+Nous avons défini que nous voulions avoir une alerte seulement les paquets `ICMP` ayant comme destination notre système grâce à l'opérateur `->`. Vu que nous voulons seulement alerter les pings entrant, nous avons ajouté l'option `itype:8` pour que snort ne nous alerte seulement quand il détecte des requêtes `ICMP echo request`.
 
 ---
 
@@ -700,10 +700,10 @@ Modifier votre règle pour que les pings soient détectés dans les deux sens.
 La règle avec les modifications demandées:
 
 ```
-alert icmp any any <> 192.168.1.151 any (msg: "Pinged"; itype:8; sid: 4000017; rev:1;)
+alert icmp any any <> 192.168.1.151 any (msg: "Pinged"; sid: 4000017; rev:1;)
 ```
 
-Nous avons changé l'opérateur `->` par `<>` ceci pour indiquer à snort que nous voulons les requêtes `ICMP` dans les deux sens.
+Nous avons changé l'opérateur `->` par `<>` ceci pour indiquer à snort que nous voulons les requêtes `ICMP` dans les deux sens et nous avons retiré l'option `itype:8` afin d'obtenir les réponse de notre système. 
 
 ---
 
